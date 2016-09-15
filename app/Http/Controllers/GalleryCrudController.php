@@ -19,7 +19,7 @@ class GalleryCrudController extends Controller
     public function index()
     {
         $GalleryImages = GalleryImage::all();
-        return view('disp.index', compact('Gallery_Images'));
+        return view('disp.index', compact('GalleryImages'));
     }
 
     /**
@@ -29,7 +29,7 @@ class GalleryCrudController extends Controller
      */
     public function create()
     {
-        return view('include.create', compact('Gallery_Images'));
+        return view('include.create', compact('GalleryImages'));
     }
 
     /**
@@ -58,7 +58,7 @@ class GalleryCrudController extends Controller
        //save image with thumbnail
        $image->save($destinationFolder.$imageName . '.' . $extension)->resize(60, 60)->save($destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
 
-
+        return redirect()->route('home.index');
     }
 
     /**
