@@ -2,10 +2,10 @@
 @section('content')
 
 
-<h1>showing {{ $GalleryImages->username }}</h1>
+<h1>showing {{ $GalleryImages->image_name }}</h1>
 <div>
 
-<h2>{{ $GalleryImages->image_name }} : <h2> <br>
+<h2>{{ $GalleryImages->username }} : <h2> <br>
 
         <img src="/uploadimage/{{$GalleryImages->image_name . '.' .
          $GalleryImages->image_extension}}">

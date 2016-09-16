@@ -21,22 +21,15 @@
     @endif
 
 
-    {!! Form::model($GalleryImages, ['route'=>['home.update', $GalleryImages->id], 'method'=> 'PATCH'])  !!}
+    {!! Form::model($GalleryImages, ['route'=>['home.update', $GalleryImages->id], 'files' => true, 'method'=> 'PATCH'])  !!}
 
      <!-- image title Form Input -->
      <div class ="container">
      <div class ="row">
      <div class ="col-xs-6">
      <div class="well bs-component">
-      <!-- form field for user -->
-      <div class="form-group">
-        {!! Form::label('Username', 'Username:') !!}
-        {!! Form::text('username', null, ['class' => 'form-control']) !!}
-     </div>
-     <div class="form-group">
-        {!! Form::label('image title', 'Image title:') !!}
-        {!! Form::text('image_name', null, ['class' => 'form-control']) !!}
-     </div>
+
+      
 
     <!-- form field for file -->
     <div class="form-group">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GalleryImage;
 use App\Http\Requests\SiteRequest;
+use App\Http\Requests\EditRequest;
 use Image; 
 use Illuminate\Support\Facades\File;
 
@@ -94,29 +95,28 @@ class GalleryCrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SiteRequest $request, $id)
+    public function update(EditRequest $request, $id)
     {
 
-      $GalleryImages = GalleryImage::findOrFail($id);
+     $GalleryImages = GalleryImage::findOrFail($id);
+      if (!empty($request->file('image'))){
 
-       $GalleryImages->username = $request->username;
-        $GalleryImages->image_name = $request->image_name;
-        $GalleryImages->image_extension = $request->file('image')->getClientOriginalExtension();
-       //define the image paths
        $destinationFolder = public_path().'\uploadimage';
        $destinationThumbnail = public_path().'\uploadimage\thumbnails';
-       //assign the image paths to new model, so we can save them to DB
-       $GalleryImages->image_path = $destinationFolder;
-       $GalleryImages->save();
-       //parts of the image we will need
+
        $file = $request->file('image');
+
        $imageName = $GalleryImages->image_name;
        $extension = $request->file('image')->getClientOriginalExtension();
+
        $image = Image::make($file->getRealPath());
        //save image with thumbnail
        $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(400, 600)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
-
         return redirect()->route('home.index');
+       
+
+   }
+    
     }
 
     /**
@@ -127,6 +127,20 @@ class GalleryCrudController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $GalleryImages = GalleryImage::findOrFail($id);
+   $thumbPath = $GalleryImages->image_path.'\thumbnails';
+   File::delete(public_path('/uploadimage/').
+                            $GalleryImages->image_name . '.' .
+                            $GalleryImages->image_extension);
+    File::delete(public_path('/uploadimage/thumbnails/'.'thumb-').
+                            $GalleryImages->image_name . '.' .
+                            $GalleryImages->image_extension);
+
+     
+   
+    GalleryImage::destroy($id);
+
+   return redirect()->route('home.index');
+
     }
 }
