@@ -20,6 +20,8 @@
 			<td>{{$GalleryImage->username}}</td>
 			<td>{{$GalleryImage->image_name}}</td>
 			<td>{{$GalleryImage->image_path}}</td>
+			<td><<img src="/uploadimage/thumbnails/{{'thumb-'.$GalleryImage->image_name . '.' .
+         $GalleryImage->image_extension}}"></td>
 			
 		</tr>
 	@endforeach
