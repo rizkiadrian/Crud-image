@@ -14,11 +14,5 @@ $(document).ready(function(){
 $.material.init();
 });
 </script>
-<script type="text/javascript">
-$('.grid').masonry({
-  // options
-  itemSelector: '.grid-item',
-  columnWidth: 200
-});
-</script>
+<script scr="/js/script.js"></script>
 

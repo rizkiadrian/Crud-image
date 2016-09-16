@@ -1,0 +1,7 @@
+.start-transition .item {
+  -webkit-transition:top .7s ease .5s, left .7s ease .5s;
+  -moz-transition:top .7s ease .5s, left .7s ease .5s;
+  -ms-transition:top .7s ease .5s, left .7s ease .5s;
+  -o-transition:top .7s ease .5s, left .7s ease .5s;
+  transition:top .7s ease .5s, left .7s ease .5s;
+}

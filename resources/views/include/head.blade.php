@@ -9,4 +9,4 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 <link rel="stylesheet" href="/css/customfot.css">
 <link rel="stylesheet" href="/css/bootstrap-material-design.css">
 <link rel="stylesheet" href="/css/ripples.css">
-
+<link type="text/css" rel="stylesheet" href="/css/index.css"/>

@@ -57,7 +57,7 @@ class GalleryCrudController extends Controller
        $extension = $request->file('image')->getClientOriginalExtension();
        $image = Image::make($file->getRealPath());
        //save image with thumbnail
-       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(400, 600)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
+       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(200, 300)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
 
         return redirect()->route('home.index');
     }
