@@ -8,8 +8,17 @@ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T
 </script>
 <script src="/js/ripples.js">
 </script>
+<script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js"></script>
 <script type ="text/javascript">
 $(document).ready(function(){
 $.material.init();
 });
 </script>
+<script type="text/javascript">
+$('.grid').masonry({
+  // options
+  itemSelector: '.grid-item',
+  columnWidth: 200
+});
+</script>
+

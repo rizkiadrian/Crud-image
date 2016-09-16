@@ -56,7 +56,7 @@ class GalleryCrudController extends Controller
        $extension = $request->file('image')->getClientOriginalExtension();
        $image = Image::make($file->getRealPath());
        //save image with thumbnail
-       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(60, 60)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
+       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(400, 600)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
 
         return redirect()->route('home.index');
     }
@@ -69,8 +69,11 @@ class GalleryCrudController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+      $GalleryImages = GalleryImage::findOrFail($id);
+
+   return view('include.show', compact('GalleryImages'));
+}
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -80,7 +83,8 @@ class GalleryCrudController extends Controller
      */
     public function edit($id)
     {
-        //
+        $GalleryImages = GalleryImage::findOrFail($id);
+        return view('include.edit', compact('GalleryImages'));
     }
 
     /**
@@ -90,9 +94,29 @@ class GalleryCrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SiteRequest $request, $id)
     {
-        //
+
+      $GalleryImages = GalleryImage::findOrFail($id);
+
+       $GalleryImages->username = $request->username;
+        $GalleryImages->image_name = $request->image_name;
+        $GalleryImages->image_extension = $request->file('image')->getClientOriginalExtension();
+       //define the image paths
+       $destinationFolder = public_path().'\uploadimage';
+       $destinationThumbnail = public_path().'\uploadimage\thumbnails';
+       //assign the image paths to new model, so we can save them to DB
+       $GalleryImages->image_path = $destinationFolder;
+       $GalleryImages->save();
+       //parts of the image we will need
+       $file = $request->file('image');
+       $imageName = $GalleryImages->image_name;
+       $extension = $request->file('image')->getClientOriginalExtension();
+       $image = Image::make($file->getRealPath());
+       //save image with thumbnail
+       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(400, 600)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
+
+        return redirect()->route('home.index');
     }
 
     /**
