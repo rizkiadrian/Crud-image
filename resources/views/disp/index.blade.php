@@ -17,16 +17,30 @@
 	</thead>
 	<tbody>-->
 	@foreach($GalleryImages as $GalleryImage)
-	
 	<div id="container">
 	<div class="grid">
-<div class="grid-item grid-item--width2 col-xs-4"><img src="/uploadimage/thumbnails/{{'thumb-'.$GalleryImage->image_name . '.' .
+<div class="grid-item grid-item--width2 col-xs-3"><img src="/uploadimage/thumbnails/{{'thumb-'.$GalleryImage->id . '.' .
          $GalleryImage->image_extension}}">
-    <div class="grid-item">{{$GalleryImage->username}}</div>
-    <div class="grid-item">{{$GalleryImage->image_path}}</div>
+    <div class="grid-item"><h3><b>{{$GalleryImage->username}}</b><h3></div>
+    <div class="grid-item"><h4><b>{{$GalleryImage->image_name}}</b><h4></div>
+    <form method="POST" action="{{ route('home.destroy', $GalleryImage->id) }}" accept-charset="UTF-8">
+	                <input name="_method" type="hidden" value="DELETE">
+	                <input name="_token" type="hidden" value="{{ csrf_token() }}">
+	<div class ="grid">  
+	<div class="grid-item grid-item--width2 col-xs-3">
+    <div class="grid-item"><a href="{{ route('home.show', $GalleryImage->id) }}" class="btn btn-warning">SHOW</a> </div>
+    </div>
+    <div class="grid-item grid-item--width2 col-xs-3">
+    <div class="grid-item"><a href="{{ route('home.edit', $GalleryImage->id) }}" class="btn btn-warning">EDIT</a> </div>
+    </div>
+    <div class="grid-item grid-item--width2 col-xs-3">
+    <div class="grid-item"><input onclick="return confirm('Anda yakin akan menghapus data ?');" type="submit" value="Hapus" class="btn btn-danger"/></div>
+    </div>
+	</div></br></br></br></br>
+	</div>          
    </div>
 </div>
-</div>
+</form>
 
 		<!--<tr>
 			<td>{{$GalleryImage->username}}</td>

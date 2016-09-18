@@ -7,7 +7,7 @@
 
 <h2>{{ $GalleryImages->username }} : <h2> <br>
 
-        <img src="/uploadimage/{{$GalleryImages->image_name . '.' .
+        <img src="/uploadimage/{{$GalleryImages->id . '.' .
          $GalleryImages->image_extension}}">
 
     </div>

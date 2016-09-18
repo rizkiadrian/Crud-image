@@ -43,7 +43,8 @@ class GalleryCrudController extends Controller
     {
         $GalleryImages = new GalleryImage();
         $GalleryImages->username = $request->username;
-        $GalleryImages->image_name = $request->image_name;
+        $GalleryImages->id = $request->id;
+         $GalleryImages->image_name = $request->image_name;
         $GalleryImages->image_extension = $request->file('image')->getClientOriginalExtension();
        //define the image paths
        $destinationFolder = public_path().'\uploadimage';
@@ -53,11 +54,11 @@ class GalleryCrudController extends Controller
        $GalleryImages->save();
        //parts of the image we will need
        $file = $request->file('image');
-       $imageName = $GalleryImages->image_name;
+       $imageId = $GalleryImages->id;
        $extension = $request->file('image')->getClientOriginalExtension();
        $image = Image::make($file->getRealPath());
        //save image with thumbnail
-       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(200, 300)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
+       $image->save(public_path().'/uploadimage/'.$imageId . '.' . $extension)->resize(200, 300)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageId . '.' . $extension);
 
         return redirect()->route('home.index');
     }
@@ -106,12 +107,12 @@ class GalleryCrudController extends Controller
 
        $file = $request->file('image');
 
-       $imageName = $GalleryImages->image_name;
+       $imageId = $GalleryImages->id;
        $extension = $request->file('image')->getClientOriginalExtension();
 
        $image = Image::make($file->getRealPath());
        //save image with thumbnail
-       $image->save(public_path().'/uploadimage/'.$imageName . '.' . $extension)->resize(400, 600)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageName . '.' . $extension);
+       $image->save(public_path().'/uploadimage/'.$imageId . '.' . $extension)->resize(200, 300)->save(public_path().'/uploadimage/thumbnails/'. 'thumb-' . $imageId . '.' . $extension);
         return redirect()->route('home.index');
        
 
@@ -130,10 +131,10 @@ class GalleryCrudController extends Controller
          $GalleryImages = GalleryImage::findOrFail($id);
    $thumbPath = $GalleryImages->image_path.'\thumbnails';
    File::delete(public_path('/uploadimage/').
-                            $GalleryImages->image_name . '.' .
+                            $GalleryImages->id . '.' .
                             $GalleryImages->image_extension);
     File::delete(public_path('/uploadimage/thumbnails/'.'thumb-').
-                            $GalleryImages->image_name . '.' .
+                            $GalleryImages->id . '.' .
                             $GalleryImages->image_extension);
 
      
